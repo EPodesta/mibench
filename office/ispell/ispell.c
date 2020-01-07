@@ -193,9 +193,9 @@ static void initckch (wchars)
 	    else
 		{
 		++wchars;
-		num[0] = '\0'; 
-		num[1] = '\0'; 
-		num[2] = '\0'; 
+		num[0] = '\0';
+		num[1] = '\0';
+		num[2] = '\0';
 		num[3] = '\0';
 		if (isdigit (wchars[0]))
 		    {
@@ -748,7 +748,7 @@ int main (argc, argv)
 
     initckch(wchars);
 
-    if (LibDict == NULL)	
+    if (LibDict == NULL)
 	{
 	(void) strcpy (libdictname, DEFHASH);
 	LibDict = libdictname;

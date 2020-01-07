@@ -664,7 +664,7 @@ static int line_size (buf, bufend)
 
 static void inserttoken (buf, start, tok, curchar)
     char *		buf;
-    char *		start; 
+    char *		start;
     register char *	tok;
     char **		curchar;
     {
@@ -767,7 +767,7 @@ void makepossibilities (word)
     wrongcapital (word);
 #endif
 
-/* 
+/*
  * according to Pollock and Zamora, CACM April 1984 (V. 27, No. 4),
  * page 363, the correct order for this is:
  * OMISSION = TRANSPOSITION > INSERTION > SUBSTITUTION
@@ -1703,7 +1703,7 @@ static void regex_dict_lookup (cmd, grepstr)
 	(void) printf (CORR_C_END_LOOK);
 	normal ();
 	(void) fflush (stdout);
-	(void) GETKEYSTROKE ();    
+	(void) GETKEYSTROKE ();
 	}
     }
 

@@ -213,7 +213,7 @@ static int		ungrablen;	/* Size of ungrab area */
 %type <simple> flagdef
 %type <simple> flagoptions
 %type <simple> flagoption
-%type <simple> error
+%token <simple> error
 %type <simple> on_or_off
 %type <simple> rules
 %type <entry> affix_rule
@@ -1679,7 +1679,7 @@ void yyinit ()
 	hashheader.stringdups[i] = i;
 	hashheader.dupnos[i] = 0;
 	}
-    
+
     hashheader.sortval = 1;	/* This is so 0 can mean uninitialized */
     (void) bcopy (NRSPECIAL, hashheader.nrchars, sizeof hashheader.nrchars);
     (void) bcopy (TEXSPECIAL, hashheader.texchars, sizeof hashheader.texchars);

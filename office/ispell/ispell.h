@@ -87,8 +87,13 @@
  * Get rid of all old RCS log lines in preparation for the 3.1 release.
  *
  */
-
+#define getline getline_orig
 #include <stdio.h>
+#undef getline
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #ifdef __STDC__
 #define P(x)	x
