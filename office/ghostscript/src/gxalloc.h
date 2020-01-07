@@ -272,14 +272,14 @@ void alloc_free_chunk(P2(chunk_t *, gs_ref_memory_t *));
 /* Print a chunk debugging message. */
 /* Unfortunately, the ANSI C preprocessor doesn't allow us to */
 /* define the list of variables being printed as a macro. */
-#define dprintf_chunk_format\
+#define dprt_chunk_format\
   "%s 0x%lx (0x%lx..0x%lx, 0x%lx..0x%lx..0x%lx)\n"
-#define dprintf_chunk(msg, cp)\
-  dprintf7(dprintf_chunk_format,\
+#define dprt_chunk(msg, cp)\
+  dprt7(dprt_chunk_format,\
 	   msg, (ulong)(cp), (ulong)(cp)->cbase, (ulong)(cp)->cbot,\
 	   (ulong)(cp)->ctop, (ulong)(cp)->climit, (ulong)(cp)->cend)
 #define if_debug_chunk(c, msg, cp)\
-  if_debug7(c, dprintf_chunk_format,\
+  if_debug7(c, dprt_chunk_format,\
 	    msg, (ulong)(cp), (ulong)(cp)->cbase, (ulong)(cp)->cbot,\
 	    (ulong)(cp)->ctop, (ulong)(cp)->climit, (ulong)(cp)->cend)
 

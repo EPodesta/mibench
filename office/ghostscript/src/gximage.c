@@ -400,8 +400,8 @@ rmask:		      /* Fill in the remaining parameters for a mask. */
 #ifdef DEBUG
 	if ( gs_debug_c('*') )
 	  { if ( penum->use_rop )
-	      dprintf1("[%03x]", lop);
-	    dprintf5("%c%d%c%dx%d ",
+	      dprt1("[%03x]", lop);
+	    dprt5("%c%d%c%dx%d ",
 		     (masked ? (color_is_pure(pdcolor) ? 'm' : 'h') : 'i'),
 		     bps,
 		     (penum->posture == image_portrait ? ' ' :
