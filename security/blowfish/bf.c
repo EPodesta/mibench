@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <unistd.h>
 #include "blowfish.h"
 
 int
@@ -28,7 +31,7 @@ else
 	printf("Usage: blowfish {e|d} <intput> <output> key\n");
 	exit(-1);
 }
-					
+
 
 /* Read the key */
 cp = argv[4];
@@ -87,8 +90,8 @@ while(!feof(fp))
 	i=0;
 }
 
-close(fp);
-close(fp2);
+fclose(fp);
+fclose(fp2);
 
 exit(1);
 }
