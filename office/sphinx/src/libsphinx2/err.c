@@ -1,5 +1,5 @@
 /* ====================================================================
- * Copyright (c) 1995-2000 Carnegie Mellon University.  All rights 
+ * Copyright (c) 1995-2000 Carnegie Mellon University.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -7,7 +7,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -16,7 +16,7 @@
  *
  * 3. The names "Sphinx" and "Carnegie Mellon" must not be used to
  *    endorse or promote products derived from this software without
- *    prior written permission. To obtain permission, contact 
+ *    prior written permission. To obtain permission, contact
  *    sphinx@cs.cmu.edu.
  *
  * 4. Products derived from this software may not be called "Sphinx"
@@ -29,16 +29,16 @@
  *    "This product includes software developed by Carnegie
  *    Mellon University (http://www.speech.cs.cmu.edu/)."
  *
- * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND 
- * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+ * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND
+ * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY
  * NOR ITS EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
@@ -61,6 +61,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #if ((! WIN32) && (! _SGI_SOURCE))
 #include <sys/errno.h>
 #else
@@ -94,7 +95,7 @@ _E__pr_info_header(char const *f, long ln, char const *msg)
 }
 
 void
-_E__pr_warn( char const *fmt, ... ) 
+_E__pr_warn( char const *fmt, ... )
 {
     va_list pvar;
 
@@ -109,7 +110,7 @@ _E__pr_warn( char const *fmt, ... )
 }
 
 void
-_E__pr_info( char const *fmt, ... ) 
+_E__pr_info( char const *fmt, ... )
 {
     va_list pvar;
 
@@ -123,7 +124,7 @@ _E__pr_info( char const *fmt, ... )
     (void) fflush(stderr);
 }
 
-void _E__die_error( char const *fmt, ... ) 
+void _E__die_error( char const *fmt, ... )
 {
     va_list pvar;
 
@@ -135,11 +136,11 @@ void _E__die_error( char const *fmt, ... )
     va_end(pvar);
 
     (void) fflush(stderr);
-    
+
     exit (-1);
 }
 
-void _E__fatal_sys_error( char const *fmt, ... ) 
+void _E__fatal_sys_error( char const *fmt, ... )
 {
     va_list pvar;
 
@@ -151,13 +152,13 @@ void _E__fatal_sys_error( char const *fmt, ... )
     putc(' ', stderr);
 
     perror("");
-    
+
     (void) fflush(stderr);
 
     exit(errno);
 }
 
-void _E__sys_error( char const *fmt, ... ) 
+void _E__sys_error( char const *fmt, ... )
 {
     va_list pvar;
 
@@ -173,7 +174,7 @@ void _E__sys_error( char const *fmt, ... )
     (void) fflush(stderr);
 }
 
-void _E__abort_error( char const *fmt, ... ) 
+void _E__abort_error( char const *fmt, ... )
 {
     va_list pvar;
 

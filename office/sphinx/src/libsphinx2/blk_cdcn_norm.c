@@ -1,5 +1,5 @@
 /* ====================================================================
- * Copyright (c) 1989-2000 Carnegie Mellon University.  All rights 
+ * Copyright (c) 1989-2000 Carnegie Mellon University.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -7,7 +7,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -16,7 +16,7 @@
  *
  * 3. The names "Sphinx" and "Carnegie Mellon" must not be used to
  *    endorse or promote products derived from this software without
- *    prior written permission. To obtain permission, contact 
+ *    prior written permission. To obtain permission, contact
  *    sphinx@cs.cmu.edu.
  *
  * 4. Products derived from this software may not be called "Sphinx"
@@ -29,16 +29,16 @@
  *    "This product includes software developed by Carnegie
  *    Mellon University (http://www.speech.cs.cmu.edu/)."
  *
- * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND 
- * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+ * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND
+ * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY
  * NOR ITS EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
@@ -53,13 +53,13 @@
  *   Dummy routine to convert from suitcase to sane varibles
  ***************************************************************************/
 
+/* Multidimensional arrays in C suck, so we have to
+forward-declare-hack this. */
+static void block_actual_cdcn_norm();
 void block_cdcn_norm (float z[][NUM_COEFF+1],  /* The input cepstrum */
 		      int num_frames,          /* Number of frames in utterance */
 		      CDCN_type *cdcn_variables)
 {
-    /* Multidimensional arrays in C suck, so we have to
-       forward-declare-hack this. */
-    static void block_actual_cdcn_norm();
     float *variance, *prob, *tilt, *noise, *codebook, *corrbook;
     int    num_codes;
 
@@ -88,7 +88,7 @@ void block_cdcn_norm (float z[][NUM_COEFF+1],  /* The input cepstrum */
     corrbook	= cdcn_variables->corrbook;
     num_codes	= cdcn_variables->num_codes;
 
-    block_actual_cdcn_norm(variance, prob, tilt, noise, codebook, 
+    block_actual_cdcn_norm(variance, prob, tilt, noise, codebook,
 			   corrbook, num_codes, z, num_frames);
     return;
 }
@@ -98,7 +98,7 @@ void block_cdcn_norm (float z[][NUM_COEFF+1],  /* The input cepstrum */
  * cdcn_norm finds the cepstrum vectors x for the whole utterance that minimize
  * the squared error.
  * This routines cleans up a block of data
- * Coded by Alex Acero (acero@s),  November 1989 
+ * Coded by Alex Acero (acero@s),  November 1989
  *
  *************************************************************************/
 
@@ -125,7 +125,7 @@ block_actual_cdcn_norm(float variance[][NUM_COEFF+1], /* Speech cepstral varianc
     float x[NUM_COEFF+1];
 
     /* Reestimate x vector for all frames in utterance */
-    for (i = 0; i < num_frames; i++) 
+    for (i = 0; i < num_frames; i++)
     {
         /* Initialize cleaned vector x */
         for (j = 0; j <= NUM_COEFF; j++)
@@ -135,18 +135,18 @@ block_actual_cdcn_norm(float variance[][NUM_COEFF+1], /* Speech cepstral varianc
 	distance = difference*difference / variance[0][0];
         for (j = 1; j <= NUM_COEFF; j++)
         {
-	    difference = z[i][j] - tilt[j] - means[0][j] - corrbook[0][j];	
+	    difference = z[i][j] - tilt[j] - means[0][j] - corrbook[0][j];
 	    distance += difference*difference / variance[0][j];
         }
         fk = exp ((double) - distance / 2) * prob[0];
         den = fk;
 
         /* Reestimate vector x across all codewords */
-        for (k = 1; k < num_codes; k++) 
+        for (k = 1; k < num_codes; k++)
         {
             /* Find estimated vector for codeword k and update x */
 	    difference = z[i][0] - means[k][0] - corrbook[k][0] - tilt[0];
-	    distance = difference*difference / variance[k][0]; 	
+	    distance = difference*difference / variance[k][0];
             for (j = 1; j <= NUM_COEFF; j++)
 	    {
 		difference = z[i][j] - tilt[j] - corrbook[k][j] - means[k][j];
@@ -158,8 +158,8 @@ block_actual_cdcn_norm(float variance[][NUM_COEFF+1], /* Speech cepstral varianc
             den += fk;
         }
 
-        /* Normalize the estimated x vector across codewords 
-         * The if test is only for sanity. It almost never fails 
+        /* Normalize the estimated x vector across codewords
+         * The if test is only for sanity. It almost never fails
          */
 	if (den != 0)
             for (j = 0; j <= NUM_COEFF; j++)
@@ -167,7 +167,7 @@ block_actual_cdcn_norm(float variance[][NUM_COEFF+1], /* Speech cepstral varianc
         else
            z[i][j] -= tilt[j];
 
-        /* 
+        /*
          * z[][] itself carries the cleaned speech now
          */
     }
