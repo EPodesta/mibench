@@ -2,7 +2,7 @@
  /*
    -----------------------------------------------------------------------
    Copyright (c) 2001 Dr Brian Gladman <brg@gladman.uk.net>, Worcester, UK
-   
+
    TERMS
 
    Redistribution and use in source and binary forms, with or without
@@ -47,12 +47,12 @@
 /* Initialisation Vector. The PRNG is George Marsaglia's    */
 /* Multiply-With-Carry (MWC) PRNG that concatenates two     */
 /* 16-bit MWC generators:                                   */
-/*     x(n)=36969 * x(n-1) + carry mod 2^16                 */ 
+/*     x(n)=36969 * x(n-1) + carry mod 2^16                 */
 /*     y(n)=18000 * y(n-1) + carry mod 2^16                 */
-/* to produce a combined PRNG with a period of about 2^60.  */  
+/* to produce a combined PRNG with a period of about 2^60.  */
 /* The Pentium cycle counter is used to initialise it. This */
 /* is crude but the IV does not need to be secret.          */
- 
+
 /* void cycles(unsigned long *rtn)     */
 /* {                           // read the Pentium Time Stamp Counter */
 /*     __asm */
@@ -76,8 +76,8 @@ void fillrand(char *buf, int len)
     static char          r[4];
     int                  i;
 
-    if(mt) { 
-	 mt = 0; 
+    if(mt) {
+	 mt = 0;
 	 /*cycles(a);*/
       a[0]=0xeaf3;
 	 a[1]=0x35fe;
@@ -93,17 +93,21 @@ void fillrand(char *buf, int len)
 
         buf[i] = r[count++];
     }
-}    
+}
 
 int encfile(FILE *fin, FILE *fout, aes *ctx, char* fn)
 {   char            inbuf[16], outbuf[16];
-    fpos_t          flen;
+    /* fpos_t          flen; */
     unsigned long   i=0, l=0;
 
     fillrand(outbuf, 16);           /* set an IV for CBC mode           */
     fseek(fin, 0, SEEK_END);        /* get the length of the file       */
-    fgetpos(fin, &flen);            /* and then reset to start          */
-    fseek(fin, 0, SEEK_SET);        
+    /* fgetpos(fin, &flen);            #<{(| and then reset to start          |)}># */
+	long int old_position = ftell(fin);
+	fseek(fin, 0, SEEK_END);
+	long int flen = ftell(fin);
+	fseek(fin, old_position, SEEK_SET);
+    fseek(fin, 0, SEEK_SET);
     fwrite(outbuf, 1, 16, fout);    /* write the IV to the output       */
     fillrand(inbuf, 1);             /* make top 4 bits of a byte random */
     l = 15;                         /* and store the length of the last */
@@ -117,7 +121,7 @@ int encfile(FILE *fin, FILE *fout, aes *ctx, char* fn)
         if(i < l) break;            /* if end of the input file reached */
 
         for(i = 0; i < 16; ++i)         /* xor in previous cipher text  */
-            inbuf[i] ^= outbuf[i]; 
+            inbuf[i] ^= outbuf[i];
 
         encrypt(inbuf, outbuf, ctx);    /* and do the encryption        */
 
@@ -143,9 +147,9 @@ int encfile(FILE *fin, FILE *fout, aes *ctx, char* fn)
     {
         while(i < 16)                   /* clear empty buffer positions */
             inbuf[i++] = 0;
-     
+
         for(i = 0; i < 16; ++i)         /* xor in previous cipher text  */
-            inbuf[i] ^= outbuf[i]; 
+            inbuf[i] ^= outbuf[i];
 
         encrypt(inbuf, outbuf, ctx);    /* encrypt and output it        */
 
@@ -155,7 +159,7 @@ int encfile(FILE *fin, FILE *fout, aes *ctx, char* fn)
             return -8;
         }
     }
-        
+
     return 0;
 }
 
@@ -183,7 +187,7 @@ int decfile(FILE *fin, FILE *fout, aes *ctx, char* ifn, char* ofn)
         outbuf[i] ^= inbuf1[i];
 
     flen = outbuf[0] & 15;  /* recover length of the last block and set */
-    l = 15;                 /* the count of valid bytes in block to 15  */                              
+    l = 15;                 /* the count of valid bytes in block to 15  */
     bp1 = inbuf1;           /* set up pointers to two input buffers     */
     bp2 = inbuf2;
 
@@ -196,7 +200,7 @@ int decfile(FILE *fin, FILE *fout, aes *ctx, char* ifn, char* ofn)
 
         /* if a block has been read the previous block must have been   */
         /* full lnegth so we can now write it out                       */
-         
+
         if(fwrite(outbuf + 16 - l, 1, l, fout) != (unsigned long)l)
         {
             printf("Error writing to output file: %s\n", ofn);
@@ -207,7 +211,7 @@ int decfile(FILE *fin, FILE *fout, aes *ctx, char* ifn, char* ofn)
 
         for(i = 0; i < 16; ++i)     /* xor it with previous input block */
             outbuf[i] ^= bp2[i];
-        
+
         /* set byte count to 16 and swap buffer pointers                */
 
         l = i; tp = bp1, bp1 = bp2, bp2 = tp;
@@ -217,7 +221,7 @@ int decfile(FILE *fin, FILE *fout, aes *ctx, char* ifn, char* ofn)
     /* in outbuf waiting to be output. If x bytes remain to be written, */
     /* we know that (16 * n + x + 15) % 16 = flen, giving x = flen + 1  */
     /* But we must also remember that the first block is offset by one  */
-    /* in the buffer - we use the fact that l = 15 rather than 16 here  */  
+    /* in the buffer - we use the fact that l = 15 rather than 16 here  */
 
     l = (l == 15 ? 1 : 0); flen += 1 - l;
 
@@ -239,13 +243,13 @@ int main(int argc, char *argv[])
 
     if(argc != 5 || (toupper(*argv[3]) != 'D' && toupper(*argv[3]) != 'E'))
     {
-        printf("usage: rijndael in_filename out_filename [d/e] key_in_hex\n"); 
+        printf("usage: rijndael in_filename out_filename [d/e] key_in_hex\n");
         err = -1; goto exit;
     }
 
     cp = argv[4];   /* this is a pointer to the hexadecimal key digits  */
     i = 0;          /* this is a count for the input digits processed   */
-    
+
     while(i < 64 && *cp)    /* the maximum key length is 32 bytes and   */
     {                       /* hence at most 64 hexadecimal digits      */
         ch = toupper(*cp++);            /* process a hexadecimal digit  */
@@ -255,18 +259,18 @@ int main(int argc, char *argv[])
             by = (by << 4) + ch - 'A' + 10;
         else                            /* error if not hexadecimal     */
         {
-            printf("key must be in hexadecimal notation\n"); 
+            printf("key must be in hexadecimal notation\n");
             err = -2; goto exit;
         }
-        
+
         /* store a key byte for each pair of hexadecimal digits         */
-        if(i++ & 1) 
-            key[i / 2 - 1] = by & 0xff; 
+        if(i++ & 1)
+            key[i / 2 - 1] = by & 0xff;
     }
 
     if(*cp)
     {
-        printf("The key value is too long\n"); 
+        printf("The key value is too long\n");
         err = -3; goto exit;
     }
     else if(i < 32 || (i & 15))
@@ -279,13 +283,13 @@ int main(int argc, char *argv[])
 
     if(!(fin = fopen(argv[1], "rb")))   /* try to open the input file */
     {
-        printf("The input file: %s could not be opened\n", argv[1]); 
+        printf("The input file: %s could not be opened\n", argv[1]);
         err = -5; goto exit;
     }
 
     if(!(fout = fopen(argv[2], "wb")))  /* try to open the output file */
     {
-        printf("The output file: %s could not be opened\n", argv[1]); 
+        printf("The output file: %s could not be opened\n", argv[1]);
         err = -6; goto exit;
     }
 
@@ -298,11 +302,11 @@ int main(int argc, char *argv[])
     else
     {                           /* decryption in Cipher Block Chaining mode */
         set_key(key, key_len, dec, ctx);
-    
+
         err = decfile(fin, fout, ctx, argv[1], argv[2]);
     }
-exit:   
-    if(fout) 
+exit:
+    if(fout)
         fclose(fout);
     if(fin)
         fclose(fin);

@@ -20,7 +20,9 @@
    certain algorithms, trademarks, copyrights, and export controls.
  */
 #include <ctype.h>
+#define getline getline_orig
 #include <stdio.h>
+#undef getline
 #include <string.h>
 #include "mpilib.h"
 #include "fileio.h"
@@ -108,7 +110,7 @@ static long infile_line;
 /************************************************************************/
 
 /* CRC Routines. */
-/*      These CRC functions are derived from code in chapter 19 of the book 
+/*      These CRC functions are derived from code in chapter 19 of the book
  *    "C Programmer's Guide to Serial Communications", by Joe Campbell.
  *      Generalized to any CRC width by Philip Zimmermann.
  */
@@ -130,17 +132,17 @@ static long infile_line;
  * error detection properties than polynomials with a minimal number of
  * nonzero terms.  Multiplying this primitive degree-23 polynomial by
  * the polynomial x+1 yields the additional property of detecting any
- * odd number of bits in error, which means it adds parity.  This 
+ * odd number of bits in error, which means it adds parity.  This
  * approach was recommended by Neal Glover.
  *
  * To multiply the polynomial 040435651 by x+1, shift it left 1 bit and
- * bitwise add (xor) the unshifted version back in.  Dropping the unused 
- * upper bit (bit 24) produces a CRC-24 generator bitmask of 041446373 
- * octal, or 0x864cfb hex.  
+ * bitwise add (xor) the unshifted version back in.  Dropping the unused
+ * upper bit (bit 24) produces a CRC-24 generator bitmask of 041446373
+ * octal, or 0x864cfb hex.
  *
- * You can detect spurious leading zeros or framing errors in the 
- * message by initializing the CRC accumulator to some agreed-upon 
- * nonzero value, but the value used is a bit nonstandard.  
+ * You can detect spurious leading zeros or framing errors in the
+ * message by initializing the CRC accumulator to some agreed-upon
+ * nonzero value, but the value used is a bit nonstandard.
  */
 
 #define CCITTCRC 0x1021		/* CCITT's 16-bit CRC generator polynomial */
@@ -437,11 +439,11 @@ get_armor_line(char *buf, FILE * f)
 
 
 /*
- * Encode a file in sections.  64 ASCII bytes * 720 lines = 46K, 
- * recommended max.  Usenet message size is 50K so this leaves a nice 
- * margin for .signature.  In the interests of orthogonality and 
- * programmer laziness no check is made for a message containing only 
- * a few lines (or even just an 'end')  after a section break. 
+ * Encode a file in sections.  64 ASCII bytes * 720 lines = 46K,
+ * recommended max.  Usenet message size is 50K so this leaves a nice
+ * margin for .signature.  In the interests of orthogonality and
+ * programmer laziness no check is made for a message containing only
+ * a few lines (or even just an 'end')  after a section break.
  */
 #define LINE_LEN	48L
 int pem_lines = 720;
@@ -854,7 +856,7 @@ isheaderline(char const *buf)
 	return i;	/* Unfamiliar label */
 }
 
-/* 
+/*
  * Skips a bunch of headers, either returning 0, or printing
  * an error message and returning -1.
  * If it encounters an unfamiliar label and *warned is not set,
@@ -1005,7 +1007,7 @@ LANG("Sections out of order, expected part %d"), currentSection);
 			currentSection);
 		goto error;
 	    }
-		
+
 	    /* Continue decoding */
 	    continue;
 	}
@@ -1104,7 +1106,7 @@ is_armorfile(char *infile)
     in = fopen(infile, FOPRARMOR);
     if (in == NULL)
 	return FALSE;	/* can't open file */
-   
+
     /* Read to infile_line before we begin looking */
     for (il = 0; il < infile_line; ++il) {
 	if (get_armor_line(inbuf, in) == NULL) {
@@ -1195,7 +1197,7 @@ darmor_file(char *infile, char *outfile)
 	 *   and text viewer combinations cause a blank line, while others
 	 *   don't.  A line that is exactly 80 columns wide but ends in
 	 *   a non-blank would do, too.
-	 * - A big pile of whitespace within a line, enough to 
+	 * - A big pile of whitespace within a line, enough to
 	 *   produce something that looks like a blank line between
 	 *   the beginning and end parts.
 	 * - Various cursor-control sequences.
@@ -1216,9 +1218,9 @@ LANG("ERROR: Header line added to ASCII armor: \"%s\"\n\
 ASCII armor corrupted.\n"), buf);
 		fclose(in);
 		return -1;
-		
+
 	}
-		
+
 	litfile = tempfile(TMP_WIPE | TMP_TMPDIR);
 	if ((litout = fopen(litfile, FOPWTXT)) == NULL) {
 	    fprintf(pgpout,

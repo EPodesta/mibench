@@ -57,7 +57,7 @@ CFLAGS= -O -DUNIX -DPORTABLE $(BYTEORDER)
 
 CC      = cc
 LD      = cc            # Link command
-LDFLAGS = 
+LDFLAGS = -m32
 CPP     = $(CC) -E
 DBG     = -O
 RM      = rm -f
@@ -65,7 +65,7 @@ RM      = rm -f
 # uncomment this for old versions of make
 #MAKE   = make
 
-ASM     = $(CC) -c              # Assembler command
+ASM     = $(CC) -c -m32             # Assembler command
 
 OBJS_EXT=                       # ASM obj. files
 LIBS_EXT=                       # Libararies
@@ -113,7 +113,7 @@ RSAOBJS = rsaglue1.o
 # Assembly-language subroutine dependencies
 
 _80386.o:	80386.S
-	$(CPP) $(ASMDEF) 80386.S > _80386.s
+	$(CPP) $(ASMDEF) -m32 80386.S > _80386.s
 	$(ASM) -o _80386.o _80386.s
 	$(RM) _80386.s
 
@@ -136,7 +136,7 @@ mc68020.o:
 	$(ASM) -o mc68020.o mc68020.s
 
 ZIPOBJS= zbits.o zdeflate.o zfile_io.o zglobals.o \
-	zinflate.o zip.o zipup.o ztrees.o zunzip.o 
+	zinflate.o zip.o zipup.o ztrees.o zunzip.o
 
 OBJ1 =  pgp.o crypto.o keymgmt.o fileio.o \
 	mdfile.o more.o armor.o mpilib.o mpiio.o \
@@ -165,7 +165,7 @@ atari:
 
 linux:
 	$(MAKE) all CC=gcc LD=gcc OBJS_EXT="_80386.o _zmatch.o" \
-	CFLAGS="$(RSAINCDIR) -O6 -g3 -DUNIX -DLINUX -DIDEA32 -DASM"
+	CFLAGS="$(RSAINCDIR) -O6 -g3 -m32 -DUNIX -DLINUX -DIDEA32 -DASM"
 
 arm-linux:
 	$(MAKE) all CC=arm-linux-gcc LD=arm-linux-gcc OBJS_EXT="" \
@@ -226,7 +226,7 @@ sun4cc: unproto/cpp
 sun4acc:
 	$(MAKE) all CC=acc LD=acc CPP="cc -E" OBJS_EXT="sparc.o memmove.o" \
 	CFLAGS="-w $(RSAINCDIR) -xO4 -DUNIX -DHIGHFIRST -DIDEA32" \
- 
+
 # Sun 4 running Sunos5 (Solaris) using gcc
 sun4sunos5gcc:
 	$(MAKE) all CC=gcc LD=gcc OBJS_EXT=sparc.o \
@@ -440,7 +440,7 @@ vax-ultrix:
 # DEC Ultrix 4.2 BSD with gcc with MIPSco processors
 #
 # To use dec's cc on mips you should
-# uncomment the next two lines because you can't compile r3000.c 
+# uncomment the next two lines because you can't compile r3000.c
 #r3000.o:	r3000.s
 #	$(AS) -o $@ r3000.s
 #
