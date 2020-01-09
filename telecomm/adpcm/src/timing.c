@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "adpcm.h"
 
 #define DATASIZE 10*1024	/* Data block size */
@@ -24,7 +26,7 @@ main() {
     int count = 0, count2;
 
     for(i=0; i<DATASIZE; i++)
-      pcmdata[i] = random() & 0xffff;
+      pcmdata[i] = rand() & 0xffff;
 
     t0 = time(0);
     do {

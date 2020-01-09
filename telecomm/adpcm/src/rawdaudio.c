@@ -2,6 +2,8 @@
 
 #include "adpcm.h"
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 struct adpcm_state state;
 
