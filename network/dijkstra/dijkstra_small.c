@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define NUM_NODES                          100
 #define NONE                               9999
@@ -21,9 +22,9 @@ typedef struct _QITEM QITEM;
 
 QITEM *qHead = NULL;
 
-             
-             
-             
+
+
+
 int AdjMatrix[NUM_NODES][NUM_NODES];
 
 int g_qCount = 0;
@@ -48,8 +49,8 @@ void enqueue (int iNode, int iDist, int iPrev)
 {
   QITEM *qNew = (QITEM *) malloc(sizeof(QITEM));
   QITEM *qLast = qHead;
-  
-  if (!qNew) 
+
+  if (!qNew)
     {
       fprintf(stderr, "Out of memory.\n");
       exit(1);
@@ -58,8 +59,8 @@ void enqueue (int iNode, int iDist, int iPrev)
   qNew->iDist = iDist;
   qNew->iPrev = iPrev;
   qNew->qNext = NULL;
-  
-  if (!qLast) 
+
+  if (!qLast)
     {
       qHead = qNew;
     }
@@ -76,7 +77,7 @@ void enqueue (int iNode, int iDist, int iPrev)
 void dequeue (int *piNode, int *piDist, int *piPrev)
 {
   QITEM *qKill = qHead;
-  
+
   if (qHead)
     {
       //                 ASSERT(g_qCount);
@@ -95,18 +96,18 @@ int qcount (void)
   return(g_qCount);
 }
 
-int dijkstra(int chStart, int chEnd) 
+int dijkstra(int chStart, int chEnd)
 {
-  
 
-  
+
+
   for (ch = 0; ch < NUM_NODES; ch++)
     {
       rgnNodes[ch].iDist = NONE;
       rgnNodes[ch].iPrev = NONE;
     }
 
-  if (chStart == chEnd) 
+  if (chStart == chEnd)
     {
       printf("Shortest path is 0 in cost. Just stay where you are.\n");
     }
@@ -114,9 +115,9 @@ int dijkstra(int chStart, int chEnd)
     {
       rgnNodes[chStart].iDist = 0;
       rgnNodes[chStart].iPrev = NONE;
-      
+
       enqueue (chStart, 0, NONE);
-      
+
      while (qcount() > 0)
 	{
 	  dequeue (&iNode, &iDist, &iPrev);
@@ -124,7 +125,7 @@ int dijkstra(int chStart, int chEnd)
 	    {
 	      if ((iCost = AdjMatrix[iNode][i]) != NONE)
 		{
-		  if ((NONE == rgnNodes[i].iDist) || 
+		  if ((NONE == rgnNodes[i].iDist) ||
 		      (rgnNodes[i].iDist > (iCost + iDist)))
 		    {
 		      rgnNodes[i].iDist = iDist + iCost;
@@ -134,7 +135,7 @@ int dijkstra(int chStart, int chEnd)
 		}
 	    }
 	}
-      
+
       printf("Shortest path is %d in cost. ", rgnNodes[chEnd].iDist);
       printf("Path is: ");
       print_path(rgnNodes, chEnd);
@@ -145,7 +146,7 @@ int dijkstra(int chStart, int chEnd)
 int main(int argc, char *argv[]) {
   int i,j,k;
   FILE *fp;
-  
+
   if (argc<2) {
     fprintf(stderr, "Usage: dijkstra <filename>\n");
     fprintf(stderr, "Only supports matrix size is #define'd.\n");
@@ -169,6 +170,6 @@ int main(int argc, char *argv[]) {
       dijkstra(i,j);
   }
   exit(0);
-  
+
 
 }

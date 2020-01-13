@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
+#include "fourier.h"
 
 int main(int argc, char *argv[]) {
 	unsigned MAXSIZE;
@@ -26,7 +28,7 @@ int main(int argc, char *argv[]) {
 		invfft = !strncmp(argv[3],"-i",2);
 	MAXSIZE=atoi(argv[2]);
 	MAXWAVES=atoi(argv[1]);
-		
+
  srand(1);
 
  RealIn=(float*)malloc(sizeof(float)*MAXSIZE);
@@ -37,16 +39,16 @@ int main(int argc, char *argv[]) {
  amp=(float*)malloc(sizeof(float)*MAXWAVES);
 
  /* Makes MAXWAVES waves of random amplitude and period */
-	for(i=0;i<MAXWAVES;i++) 
+	for(i=0;i<MAXWAVES;i++)
 	{
 		coeff[i] = rand()%1000;
 		amp[i] = rand()%1000;
 	}
- for(i=0;i<MAXSIZE;i++) 
+ for(i=0;i<MAXSIZE;i++)
  {
    /*   RealIn[i]=rand();*/
 	 RealIn[i]=0;
-	 for(j=0;j<MAXWAVES;j++) 
+	 for(j=0;j<MAXWAVES;j++)
 	 {
 		 /* randomly select sin or cos */
 		 if (rand()%2)
@@ -63,7 +65,7 @@ int main(int argc, char *argv[]) {
 
  /* regular*/
  fft_float (MAXSIZE,invfft,RealIn,ImagIn,RealOut,ImagOut);
- 
+
  printf("RealOut:\n");
  for (i=0;i<MAXSIZE;i++)
    printf("%f \t", RealOut[i]);

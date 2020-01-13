@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <signal.h>
+#include <utime.h>
 
 #include <errno.h>
 #ifndef	HAS_ERRNO_DECL

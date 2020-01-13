@@ -1,13 +1,13 @@
 #    Copyright (C) 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -33,15 +33,15 @@ GS_VERSION=$(GS_VERSION_MAJOR)$(GS_VERSION_MINOR0)
 GS_DOT_VERSION=$(GS_VERSION_MAJOR).$(GS_VERSION_MINOR)
 GS_REVISION=$(GS_VERSION)
 #    Copyright (C) 1989, 1995, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -69,8 +69,8 @@ GS_REVISION=$(GS_VERSION)
 # initialization files (gs_*.ps) and the fonts.
 
 INSTALL = /usr/bin/install -c
-INSTALL_PROGRAM = $(INSTALL) -m 755 
-INSTALL_DATA = $(INSTALL) -m 644 
+INSTALL_PROGRAM = $(INSTALL) -m 755
+INSTALL_DATA = $(INSTALL) -m 644
 
 prefix = ..
 exec_prefix = $(prefix)
@@ -287,10 +287,10 @@ FILE_IMPLEMENTATION=stdio
 #DEVICE_DEVS=
 DEVICE_DEVS1=
 DEVICE_DEVS2=
-#DEVICE_DEVS3=deskjet.dev djet500.dev laserjet.dev ljetplus.dev 
+#DEVICE_DEVS3=deskjet.dev djet500.dev laserjet.dev ljetplus.dev
 #ljet2p.dev ljet3.dev ljet4.dev
 DEVICE_DEVS3=
-#DEVICE_DEVS4=cdeskjet.dev cdjcolor.dev cdjmono.dev cdj550.dev pj.dev 
+#DEVICE_DEVS4=cdeskjet.dev cdjcolor.dev cdjmono.dev cdj550.dev pj.dev
 #pjxl.dev pjxl300.dev
 DEVICE_DEVS4=
 DEVICE_DEVS5=
@@ -334,15 +334,15 @@ CCLEAF=$(CCC) -fomit-frame-pointer
 # The remainder of the makefile (unixhead.mak, gs.mak, devs.mak, unixtail.mak)
 # is generic.  tar_cat concatenates all these together.
 #    Copyright (C) 1990, 1993, 1996 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -411,15 +411,15 @@ CCBEGIN=$(CCC) *.c
 BGIDIR=***UNUSED***
 PCFBASM=
 #    Copyright (C) 1989, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -750,15 +750,15 @@ $(gconfig_h) $(ld_tr) lib.tr: \
 #	devs.mak
 ################################################################
 #    Copyright (C) 1995, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -1050,7 +1050,7 @@ gxccache.$(OBJ): gxccache.c $(GXERR) $(gpcheck_h) \
   $(gscspace_h) $(gsimage_h) $(gsstruct_h) \
   $(gxchar_h) $(gxdevice_h) $(gxdevmem_h) $(gxfcache_h) \
   $(gxfixed_h) $(gxfont_h) $(gxhttile_h) $(gxmatrix_h) $(gxxfont_h) \
-  $(gzstate_h) $(gzpath_h) $(gzcpath_h) 
+  $(gzstate_h) $(gzpath_h) $(gzcpath_h)
 
 gxccman.$(OBJ): gxccman.c $(GXERR) $(memory__h) $(gpcheck_h)\
  $(gsbitops_h) $(gsstruct_h) $(gsutil_h) $(gxfixed_h) $(gxmatrix_h)\
@@ -1957,15 +1957,15 @@ gslib.$(OBJ): gslib.c $(AK) $(math__h) \
   $(gspaint_h) $(gspath_h) $(gsstruct_h) $(gsutil_h) \
   $(gxalloc_h) $(gxdevice_h)
 #    Copyright (C) 1995, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -2511,7 +2511,7 @@ ttfont.dev: $(INT_MAK) $(ECHOGS_XE) type42.dev
 type42read_=zchar42.$(OBJ) zcharout.$(OBJ) zfont42.$(OBJ)
 type42.dev: $(INT_MAK) $(ECHOGS_XE) $(type42read_) ttflib.dev
 	$(SETMOD) type42 $(type42read_)
-	$(ADDMOD) type42 -include ttflib	
+	$(ADDMOD) type42 -include ttflib
 	$(ADDMOD) type42 -oper zchar42 zfont42
 	$(ADDMOD) type42 -ps gs_typ42
 
@@ -3168,15 +3168,15 @@ ireclaim.$(OBJ): ireclaim.c $(GH) \
   $(errors_h) $(gsstruct_h) $(iastate_h) $(opdef_h) $(store_h) \
   $(dstack_h) $(estack_h) $(ostack_h)
 #    Copyright (C) 1994, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -3326,7 +3326,7 @@ jpege.dev: jpege$(JVERSION).dev
 jpege5=jcapi.$(OBJ)
 jpege6=jcapimin.$(OBJ) jcapistd.$(OBJ) jcinit.$(OBJ)
 
-jpege_1=jccoefct.$(OBJ) jccolor.$(OBJ) jcdctmgr.$(OBJ) 
+jpege_1=jccoefct.$(OBJ) jccolor.$(OBJ) jcdctmgr.$(OBJ)
 jpege_2=jchuff.$(OBJ) jcmainct.$(OBJ) jcmarker.$(OBJ) jcmaster.$(OBJ)
 jpege_3=jcparam.$(OBJ) jcprepct.$(OBJ) jcsample.$(OBJ) jfdctint.$(OBJ)
 
@@ -3349,7 +3349,7 @@ jcapi.$(OBJ): $(JSRC)jcapi.c $(JDEP)
 	$(CP_) $(JSRC)jcapi.c .
 	$(CCCJ) jcapi.c
 	$(RM_) jcapi.c
-  
+
 # jcapimin.c is new in v6
 jcapimin.$(OBJ): $(JSRC)jcapimin.c $(JDEP)
 	$(CP_) $(JSRC)jcapimin.c .
@@ -3529,15 +3529,15 @@ jidctint.$(OBJ): $(JSRC)jidctint.c $(JDEP)
 	$(CCCJ) jidctint.c
 	$(RM_) jidctint.c
 #    Copyright (C) 1995, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -3639,15 +3639,15 @@ libpng90.dev: $(LIBPNG_MAK) $(ECHOGS_XE) pngwio.$(OBJ) crc32.dev
 libpng95.dev: $(LIBPNG_MAK) $(ECHOGS_XE) pngwio.$(OBJ) crc32.dev
 	$(SETMOD) libpng95 pngwio.$(OBJ) -include crc32
 #    Copyright (C) 1995, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -3801,15 +3801,15 @@ infutil.$(OBJ): $(ZSRC)infutil.c $(ZDEP) zutil.h
 	$(CCCZ) infutil.c
 	$(RM_) infutil.c
 #    Copyright (C) 1989, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -3933,7 +3933,7 @@ DEVS_MAK=devs.mak
 # *	oki182	Okidata MicroLine 182
 # *	okiibm	Okidata MicroLine IBM-compatible printers
 # *	paintjet  alternate H-P PaintJet color printer
-# *	pj	H-P PaintJet XL driver 
+# *	pj	H-P PaintJet XL driver
 # *	pjetxl	alternate H-P PaintJet XL driver
 # *	pjxl	H-P PaintJet XL color printer
 # *	pjxl300  H-P PaintJet XL300 color printer;
@@ -4474,7 +4474,7 @@ ljetplus.dev: $(HPMONO) page.dev
 	$(SETPDEV) ljetplus $(HPMONO)
 
 ### Selecting ljet2p provides TIFF (mode 2) compression on LaserJet III,
-### IIIp, IIId, IIIsi, IId, and IIp. 
+### IIIp, IIId, IIIsi, IId, and IIp.
 
 ljet2p.dev: $(HPMONO) page.dev
 	$(SETPDEV) ljet2p $(HPMONO)
@@ -5386,15 +5386,15 @@ tiff24nc.dev: $(tiffrgb_) tiffs.dev
 
 gdevtfnx.$(OBJ): gdevtfnx.c $(PDEVH) $(gdevtifs_h)
 #    Copyright (C) 1990, 1995, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only
@@ -5531,15 +5531,15 @@ $(GS_XE): ld.tr echogs $(XE_ALL)
 	DEVICE_DEVS13= DEVICE_DEVS14= DEVICE_DEVS15= \
 	$(SH) <ldt.tr
 #    Copyright (C) 1994, 1995, 1996, 1997 Aladdin Enterprises.  All rights reserved.
-# 
+#
 # This file is part of Aladdin Ghostscript.
-# 
+#
 # Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
 # or distributor accepts any responsibility for the consequences of using it,
 # or for whether it serves any particular purpose or works at all, unless he
 # or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
 # License (the "License") for full details.
-# 
+#
 # Every copy of Aladdin Ghostscript must include a copy of the License,
 # normally in a plain ASCII text file named PUBLIC.  The License grants you
 # the right to copy, modify and redistribute Aladdin Ghostscript, but only

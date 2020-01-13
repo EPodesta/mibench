@@ -1,6 +1,6 @@
 BINDIR='/usr/local/bin'
 CC='cc'
-CFLAGS='-O'
+CFLAGS='-m32'
 COUNTSUFFIX='.cnt'
 DEFHASH='english.hash'
 DEFLANG='english.aff'

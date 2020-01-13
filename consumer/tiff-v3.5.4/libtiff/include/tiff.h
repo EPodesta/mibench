@@ -1,4 +1,4 @@
-/* $Header: /home/mguthaus/.cvsroot/mibench/consumer/tiff-v3.5.4/libtiff/include/tiff.h,v 1.1.1.1 2000/11/06 19:52:27 mguthaus Exp $ */
+/* $Header: /home/mguthaus/.cvsroot/mibench/consumer/tiff-v3.5.4/libtiff/tiff.h,v 1.1.1.1 2000/11/06 19:52:27 mguthaus Exp $ */
 
 /*
  * Copyright (c) 1988-1997 Sam Leffler

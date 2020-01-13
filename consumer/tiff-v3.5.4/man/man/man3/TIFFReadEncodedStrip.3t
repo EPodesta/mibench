@@ -1,4 +1,4 @@
-.\" $Header: /home/mguthaus/.cvsroot/mibench/consumer/tiff-v3.5.4/man/man/man3/TIFFReadEncodedStrip.3t,v 1.1.1.1 2000/11/06 19:52:29 mguthaus Exp $
+.\" $Header: /home/mguthaus/.cvsroot/mibench/consumer/tiff-v3.5.4/man/TIFFReadEncodedStrip.3t,v 1.1.1.1 2000/11/06 19:52:28 mguthaus Exp $
 .\"
 .\" Copyright (c) 1988-1997 Sam Leffler
 .\" Copyright (c) 1991-1997 Silicon Graphics, Inc.

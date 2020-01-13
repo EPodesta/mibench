@@ -447,7 +447,7 @@ uninstall:
 	-rm -fr $(DOCDIR)
 	-rm -f  $(MANDIR)/lout.1 $(MANDIR)/prg2lout.1
 
-clean:	
+clean:
 	-rm -f lout prg2lout *.o
 
 restart:	clean uninstall

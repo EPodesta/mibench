@@ -30,6 +30,7 @@ dnl System type.
 
 AC_CANONICAL_HOST
 
+AM_PROG_AS
 dnl Checks for programs.
 
 AC_PROG_CC
@@ -115,7 +116,7 @@ then
     case "$optimize" in
 	-O|"-O "*)
 	    optimize="-O"
-	    optimize="$optimize -fforce-mem"
+	    optimize="$optimize"
 	    optimize="$optimize -fforce-addr"
 	    : #x optimize="$optimize -finline-functions"
 	    : #- optimize="$optimize -fstrength-reduce"

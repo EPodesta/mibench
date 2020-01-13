@@ -93,6 +93,7 @@
 #define MAN1DIR	"/usr/local/man/man1"
 #define MAN4DIR	"/usr/local/man/man4"
 
+#define CFLAGS "-m32"
 /*
  * Place any locally-required #include statements here
  */

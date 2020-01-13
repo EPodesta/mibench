@@ -28,7 +28,7 @@
 #define	HAS_UTIME	1		/* POSIX utime(path, times)	*/
 /*efine	HAS_UTIMES	1		/* use utimes()	syscall instead	*/
 #define	HAS_UTIME_H	1		/* UTIME header file		*/
-/*efine	HAS_UTIMBUF	1		/* struct utimbuf		*/
+#define	HAS_UTIMBUF	1		/* struct utimbuf
 /*efine	HAS_UTIMEUSEC   1		/* microseconds in utimbuf?	*/
 
 #endif	/* CONFIG_H */

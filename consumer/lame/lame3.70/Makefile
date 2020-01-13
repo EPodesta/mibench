@@ -1,10 +1,10 @@
 # Makefile for LAME 3.xx
 #
-# LAME is reported to work under:  
+# LAME is reported to work under:
 # Linux (i86), NetBSD 1.3.2 (StrongARM), FreeBSD (i86)
 # Compaq Alpha(OSF, Linux, Tru64 Unix), Sun Solaris, SGI IRIX,
-# OS2 Warp, Macintosh PPC, BeOS, Amiga and even VC++ 
-# 
+# OS2 Warp, Macintosh PPC, BeOS, Amiga and even VC++
+#
 UNAME = $(shell uname)
 ARCH = $(shell uname -m)
 
@@ -13,28 +13,28 @@ ARCH = $(shell uname -m)
 PGM = lame
 CC = gcc
 CC_OPTS =  -O
-GTK = 
-GTKLIBS = 
+GTK =
+GTKLIBS =
 SNDLIB = -DLAMESNDFILE
-LIBSNDFILE =  
-LIBS = -lm 
+LIBSNDFILE =
+LIBS = -lm
 MAKEDEP = -M
-BRHIST_SWITCH = 
-LIBTERMCAP = 
+BRHIST_SWITCH =
+LIBTERMCAP =
 RM = rm -f
 CPP_OPTS = -DHAVEMPGLIB -DLAMEPARSE
 
 
 
 ##########################################################################
-# To remove support for mp3 *decoding*, 
+# To remove support for mp3 *decoding*,
 # remove -DHAVEMPGLIB to CPP_OPTS
 ##########################################################################
 
 
 ##########################################################################
-# Define these to compile in code for the optional VBR bitrate histogram.  
-# Requires ncurses, but libtermcap also works.  
+# Define these to compile in code for the optional VBR bitrate histogram.
+# Requires ncurses, but libtermcap also works.
 # If you have any trouble, just dont define these
 ##########################################################################
 #BRHIST_SWITCH = -DBRHIST
@@ -43,15 +43,15 @@ CPP_OPTS = -DHAVEMPGLIB -DLAMEPARSE
 
 
 ##########################################################################
-# SNDLIB =         no file i/o 
+# SNDLIB =         no file i/o
 # SNDLIB = -DLAMESNDFILE  to use internal LAME soundfile routines
-# SNDLIB = -DLIBSNDFILE   to use Erik de Castro Lopo's libsndfile 
+# SNDLIB = -DLIBSNDFILE   to use Erik de Castro Lopo's libsndfile
 # http://www.zip.com.au/~erikd/libsndfile/
 # otherwise LAME can only read 16bit wav, aiff and pcm inputfiles.
-# Note: at present, libsndfile does not support input from stdin.  
+# Note: at present, libsndfile does not support input from stdin.
 ##########################################################################
 #SNDLIB = -DLIBSNDFILE
-#LIBSNDFILE=-lsndfile 
+#LIBSNDFILE=-lsndfile
 # if libsndfile is in a custom location, try:
 #LIBSNDFILE=-L $(LIBSNDHOME) -lsndfile  -I $(LIBSNDHOME)
 
@@ -62,16 +62,16 @@ CPP_OPTS = -DHAVEMPGLIB -DLAMEPARSE
 # and SNDLIB = -DLAME or -DLIBSNDFILE
 ##########################################################################
 #GTK = -DHAVEGTK `gtk-config --cflags`
-#GTKLIBS = `gtk-config --libs` 
+#GTKLIBS = `gtk-config --libs`
 
 
 ##########################################################################
-# LINUX   
+# LINUX
 ##########################################################################
 ifeq ($(UNAME),Linux)
 #  remove these lines if you dont have GTK, or dont want the GTK frame analyzer
 #   GTK = -DHAVEGTK `gtk-config --cflags`
-#   GTKLIBS = `gtk-config --libs` 
+#   GTKLIBS = `gtk-config --libs`
 # Comment out next 2 lines if you want to remove VBR histogram capability
    BRHIST_SWITCH = -DBRHIST
    LIBTERMCAP = -lncurses
@@ -79,17 +79,17 @@ ifeq ($(UNAME),Linux)
 
 # suggested for gcc-2.7.x
    CC_OPTS =  -O3 -fomit-frame-pointer -funroll-loops -ffast-math  -finline-functions -Wall
-#  CC_OPTS =  -O9 -fomit-frame-pointer -fno-strength-reduce -mpentiumpro -ffast-math -finline-functions -funroll-loops -Wall -malign-double -g -march=pentiumpro -mfancy-math-387 -pipe 
+#  CC_OPTS =  -O9 -fomit-frame-pointer -fno-strength-reduce -mpentiumpro -ffast-math -finline-functions -funroll-loops -Wall -malign-double -g -march=pentiumpro -mfancy-math-387 -pipe
 
 #  for debugging:
-#   CC_OPTS =  -UNDEBUG -O -Wall -g -DABORTFP 
+#   CC_OPTS =  -UNDEBUG -O -Wall -g -DABORTFP
 
 #  for lots of debugging:
-#   CC_OPTS =  -DDEBUG -UNDEBUG  -O -Wall -g -DABORTFP 
+#   CC_OPTS =  -DDEBUG -UNDEBUG  -O -Wall -g -DABORTFP
 
 
 
-# The following features are experimental code, 
+# The following features are experimental code,
 # so don't use them if you don't know exactly what you do! (RH 2000-01-30)
 #   FEATURES  = -DRH_QUALITY_CONTROL  # tuned VBR quality control
 #   FEATURES += -DRH_SIDE_VBR         # turns side channel reduction off (VBR)
@@ -101,7 +101,7 @@ ifeq ($(UNAME),Linux)
 #	-finline-functions -fexpensive-optimizations \
 #	-ffast-math -malign-double -mfancy-math-387 \
 #	-funroll-loops -funroll-all-loops -pipe -fschedule-insns2 \
-#	-fno-strength-reduce 
+#	-fno-strength-reduce
 
 
 ##########################################################################
@@ -121,11 +121,11 @@ CC_OPTS =       -O4 -Wall -fomit-frame-pointer -ffast-math -funroll-loops \
 #CC_OPTS = -fast -Wall
 
 # standard Linux libm
-#LIBS	=	-lm  
+#LIBS	=	-lm
 # optimized libffm (free fast math library)
-#LIBS	=	-lffm  
+#LIBS	=	-lffm
 # Compaq's fast math library
-LIBS    =       -lcpml 
+LIBS    =       -lcpml
 endif
 endif
 
@@ -137,7 +137,7 @@ endif
 ifeq ($(UNAME),FreeBSD)
 #  remove if you do not have GTK or do not want the GTK frame analyzer
 #   GTK = -DHAVEGTK `gtk12-config --cflags`
-#   GTKLIBS = `gtk12-config --libs` 
+#   GTKLIBS = `gtk12-config --libs`
 # Comment out next 2 lines if you want to remove VBR histogram capability
    BRHIST_SWITCH = -DBRHIST
    LIBTERMCAP = -lncurses
@@ -148,9 +148,9 @@ endif
 ##########################################################################
 # SunOS
 ##########################################################################
-ifeq ($(UNAME),SunOS) 
+ifeq ($(UNAME),SunOS)
    CC = cc
-   CC_OPTS = -O -xCC  	
+   CC_OPTS = -O -xCC
    MAKEDEP = -xM
 endif
 
@@ -158,8 +158,8 @@ endif
 ##########################################################################
 # SGI
 ##########################################################################
-ifeq ($(UNAME),IRIX64) 
-   CC = cc	
+ifeq ($(UNAME),IRIX64)
+   CC = cc
 endif
 
 
@@ -194,8 +194,8 @@ ifeq ($(UNAME),Rhapsody)
    CC = cc
    LIBS =
    CC_OPTS = -O9 -ffast-math -funroll-loops -fomit-frame-pointer
-   MAKEDEP = -make 
-   
+   MAKEDEP = -make
+
 endif
 ##########################################################################
 # OS/2
@@ -205,7 +205,7 @@ endif
 #
 ##########################################################################
 ifeq ($(UNAME),OS/2)
-   SHELL=sh	
+   SHELL=sh
    CC = gcc
    CC_OPTS = -O3
    PGM = lame.exe
@@ -230,7 +230,7 @@ endif
 
 
 # 10/99 added -D__NO_MATH_INLINES to fix a bug in *all* versions of
-# gcc 2.8+ as of 10/99.  
+# gcc 2.8+ as of 10/99.
 
 CC_SWITCHES = -DNDEBUG -D__NO_MATH_INLINES $(CC_OPTS) $(SNDLIB) $(GTK) $(BRHIST_SWITCH)
 c_sources = \
@@ -264,23 +264,23 @@ c_sources = \
         mpglib/layer3.c \
         mpglib/tabinit.c \
         mpglib/interface.c \
-        mpglib/main.c 
+        mpglib/main.c
 
 OBJ = $(c_sources:.c=.o)
 DEP = $(c_sources:.c=.d)
 
 
 
-%.o: %.c 
+%.o: %.c
 	$(CC) $(CPP_OPTS) $(CC_SWITCHES) -c $< -o $@
 
 %.d: %.c
 	$(SHELL) -ec '$(CC) $(MAKEDEP)  $(CPP_OPTS) $(CC_SWITCHES)  $< | sed '\''s;$*.o;& $@;g'\'' > $@'
 
-#$(PGM):	main.o $(OBJ) Makefile 
+#$(PGM):	main.o $(OBJ) Makefile
 #	$(CC) -o $(PGM)  main.o $(OBJ) $(LIBS) $(CPP_OPTS) $(LIBSNDFILE) $(GTKLIBS) $(LIBTERMCAP)
 
-$(PGM):	main.o libmp3lame.a 
+$(PGM):	main.o libmp3lame.a
 	$(CC) -o $(PGM)  main.o -L. -lmp3lame $(LIBS) $(LIBSNDFILE) $(GTKLIBS) $(LIBTERMCAP)
 
 mp3x:	mp3x.o libmp3lame.a
@@ -292,11 +292,11 @@ mp3rtp:	rtp.o mp3rtp.o libmp3lame.a
 libmp3lame.a:  $(OBJ) Makefile
 #	cd libmp3lame
 #	make libmp3lame
-	ar cr libmp3lame.a  $(OBJ) 
+	ar cr libmp3lame.a  $(OBJ)
 
 clean:
 	-$(RM) $(OBJ) $(DEP) $(PGM) main.o rtp.o mp3rtp mp3rtp.o \
-         mp3x.o mp3x libmp3lame.a 
+         mp3x.o mp3x libmp3lame.a
 
 
 tags: TAGS
@@ -312,9 +312,9 @@ endif
 #
 #  testcase.mp3 is a 2926 byte file.  The first number output by
 #  wc is the number of bytes which differ between new output
-#  and 'official' results.  
+#  and 'official' results.
 #
-#  Because of compilier options and effects of roundoff, the 
+#  Because of compilier options and effects of roundoff, the
 #  number of bytes which are different may not be zero, but
 #  should be at most 30.
 #
