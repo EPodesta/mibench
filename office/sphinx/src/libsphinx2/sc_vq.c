@@ -1,5 +1,5 @@
 /* ====================================================================
- * Copyright (c) 1991-2000 Carnegie Mellon University.  All rights 
+ * Copyright (c) 1991-2000 Carnegie Mellon University.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -7,7 +7,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -16,7 +16,7 @@
  *
  * 3. The names "Sphinx" and "Carnegie Mellon" must not be used to
  *    endorse or promote products derived from this software without
- *    prior written permission. To obtain permission, contact 
+ *    prior written permission. To obtain permission, contact
  *    sphinx@cs.cmu.edu.
  *
  * 4. Products derived from this software may not be called "Sphinx"
@@ -29,16 +29,16 @@
  *    "This product includes software developed by Carnegie
  *    Mellon University (http://www.speech.cs.cmu.edu/)."
  *
- * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND 
- * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+ * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND
+ * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY
  * NOR ITS EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
@@ -48,23 +48,23 @@
 /*
  *
  * HISTORY
- * 
+ *
  * 19-Nov-97  M K Ravishankar (rkm@cs) at Carnegie-Mellon University
  * 	Added ability to read power variance file if it exists.
- * 
+ *
  * 19-Jun-95  M K Ravishankar (rkm@cs) at Carnegie-Mellon University
  * 	Added scvq_set_psen() and scvq_set_bestpscr().  Modified SCVQScores_all to
  * 	also compute best senone score/phone.
- * 
+ *
  * 19-May-95  M K Ravishankar (rkm@cs) at Carnegie-Mellon University
  * 	Added check for bad VQ scores in SCVQScores and SCVQScores_all.
- * 
+ *
  * 01-Jul-94  M K Ravishankar (rkm@cs) at Carnegie-Mellon University
  * 	In SCVQScores, returned result from SCVQComputeScores_opt().
- * 
+ *
  * 01-Nov-93  M K Ravishankar (rkm@cs) at Carnegie-Mellon University
  * 	Added compressed, 16-bit senone probs option.
- * 
+ *
  *  6-Apr-92  Fil Alleva (faa) at Carnegie-Mellon University
  *	- added SCVQAgcSet() and agcType.
  *
@@ -76,6 +76,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 #ifdef WIN32
@@ -316,7 +317,7 @@ static void cepDist3(vqFeature_t *topn, float *z)
 
 	cw = detP - det;
 
-	/* 
+	/*
 	 * remaining code inserts codeword and dist in correct spot
 	 */
 	int_d = (int32)(d - 0.5);
@@ -391,7 +392,7 @@ static void dcepDist0(vqFeature_t *topn, float *dzs, float *dzl)
 	mean += CEP_VECLEN-1;
 	var += CEP_VECLEN-1;
 	if (j < CEP_VECLEN) {
-	    mean += (CEP_VECLEN-j);	
+	    mean += (CEP_VECLEN-j);
 	    var  += (CEP_VECLEN-j);
 	    continue;
 	}
@@ -531,7 +532,7 @@ static float   dBufArr[CEP_VECLEN*(DIFF_MASK+1)];
 static int32    dIdx = 0;
 
 
-void SCVQInit(int32 top, int32 numModels, int32 numDist, double vFloor, 
+void SCVQInit(int32 top, int32 numModels, int32 numDist, double vFloor,
 	      int32 use20msdp)
 {
     int32 i;
@@ -555,11 +556,11 @@ void SCVQInit(int32 top, int32 numModels, int32 numDist, double vFloor,
     topN = top;
 
     CdWdPDFMod = numModels * numDist; /* # prob values per codeword */
-    
+
     if ((scrPass    = (int32 *)calloc(CdWdPDFMod, sizeof(int32))) == NULL)
 	QUIT((stdout, "%s(%d): calloc(%d,%d) failed\n", __FILE__, __LINE__,
 	      CdWdPDFMod, sizeof(int32)));
-    
+
     setVarFloor(vFloor);	/* see sc_cbook_r.c */
 
 #ifdef WIN32
@@ -602,7 +603,7 @@ int SCVQComputeFeatures(float **cep,
 
     memcpy((char *)(inBufArr + inIdx*CEP_VECLEN), (char *)in,
 	  sizeof(float)*CEP_VECLEN);
-  
+
     /* compute short duration difference */
     dout = dBufArr + dIdx*CEP_VECLEN;
     df  = inBufArr + inIdx*CEP_VECLEN;
@@ -640,9 +641,9 @@ int SCVQComputeFeatures(float **cep,
     pBufArr[2] = *ddBufArr;
 
     *cep  = inBufArr + INPUT_INDEX(inIdx-4)*CEP_VECLEN;
-	
+
     *dcep = dBufArr + DIFF_INDEX(dIdx-2)*CEP_VECLEN;
-    
+
     *dcep_80ms = ldBufArr;
 
     *pow = pBufArr;
@@ -724,9 +725,9 @@ int32 SCVQScores (int32 *scores,
 #endif
 
     cepDist0(f[(int32) CEP_FEAT], cep);
-	     
+
     dcepDist0(f[(int32) DCEP_FEAT], dcep, dcep_80ms);
-    
+
     powDist(f[(int32) POW_FEAT], pcep);
 
     ddcepDist0(f[(int32) DDCEP_FEAT], ddcep);
@@ -746,14 +747,14 @@ int32 SCVQScores (int32 *scores,
 		QUIT((stderr, "%s(%d):  **ERROR** VQ score= %d\n",
 		      __FILE__, __LINE__, f[j][i].val.score));
 	}
-    
+
 #ifdef WIN32
     GetProcessTimes (pid, &t_create, &t_exit, &ket, &uet);
     vq_time += win32_cputime (&ust, &uet);
 #endif
 
     best = SCVQComputeScores(scores, f);
-    
+
 #ifdef WIN32
     GetProcessTimes (pid, &t_create, &t_exit, &kst, &ust);
     scr_time += win32_cputime (&uet, &ust);
@@ -779,9 +780,9 @@ int32 SCVQScores_all (int32 *scores,
 #endif
 
     cepDist0(f[(int32) CEP_FEAT], cep);
-	     
+
     dcepDist0(f[(int32) DCEP_FEAT], dcep, dcep_80ms);
-    
+
     powDist(f[(int32) POW_FEAT], pcep);
 
     ddcepDist0(f[(int32) DDCEP_FEAT], ddcep);
@@ -801,14 +802,14 @@ int32 SCVQScores_all (int32 *scores,
 		QUIT((stderr, "%s(%d):  **ERROR** VQ score= %d\n",
 		      __FILE__, __LINE__, f[j][i].val.score));
 	}
-    
+
 #ifdef WIN32
     GetProcessTimes (pid, &t_create, &t_exit, &ket, &uet);
     vq_time += win32_cputime (&ust, &uet);
 #endif
 
     best = SCVQComputeScores_all (scores, f);
-    
+
 #ifdef WIN32
     GetProcessTimes (pid, &t_create, &t_exit, &kst, &ust);
     scr_time += win32_cputime (&uet, &ust);
@@ -835,7 +836,7 @@ static int32 SCVQComputeScores(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	default: ret = get_scores(scores, frm);   break;
 	}
     }
-    
+
     return ret;
 }
 
@@ -858,7 +859,7 @@ static int32 SCVQComputeScores_all(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	default: ret = get_scores_all(scores, frm);   break;
 	}
     }
-    
+
     return ret;
 }
 
@@ -866,7 +867,7 @@ static int32 SCVQComputeScores_all(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 static int32 compute_bestpscr (int32 *scrp)
 {
     int32 b, i, j, k;
-    
+
     b = (int32) 0x80000000;
     for (i = 0; i < n_phone; i++) {
 	k = (int32) 0x80000000;
@@ -897,9 +898,9 @@ static int32 get_scores_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
     int32 **opdf = OPDF;
     register int32   ts = Table_Size;
     register int16 *at = Addition_Table;
-    
+
     n_senone_active = CdWdPDFMod;
-    
+
     for (j = 0; j < NUM_FEATURES; j++) {
 	for (i = 0; i < topN; i++) {
 	    frm[j][i].codeword *= CdWdPDFMod;
@@ -975,14 +976,14 @@ static int32 get_scores4(int32 *scores, vqFeature_t frm[][MAX_TOPN])
     pdf1 = OPDF[0] + frm[0][1].codeword;
     pdf2 = OPDF[0] + frm[0][2].codeword;
     pdf3 = OPDF[0] + frm[0][3].codeword;
-    
+
     w0 = frm[0][0].val.score;
     w1 = frm[0][1].val.score;
     w2 = frm[0][2].val.score;
     w3 = frm[0][3].val.score;
 
     scr = scores;
-    
+
     for (i = 0; i < n_senone_active; i++) {
 	k = senone_active[i];
 
@@ -995,7 +996,7 @@ static int32 get_scores4(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	FAST_ADD (tmp1, tmp1, tmp2, at, ts);
 	scr[k] = tmp1;
     }
-    
+
     for (j = 1; j < NUM_FEATURES; j++) {
         /*
          *  Assumes that codeword is premultiplyed by CdWdPDFMod
@@ -1033,7 +1034,7 @@ static int32 get_scores4(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	if (k < scores[n])
 	    k = scores[n];
     }
-    
+
     return (k);
 }
 
@@ -1041,11 +1042,11 @@ static int32 get_scores4(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 static int32 get_scores4_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 {
     int32 i; /*, k; */
-    
+
     for (i = 0; i < CdWdPDFMod; i++)
 	senone_active[i] = i;
     n_senone_active = CdWdPDFMod;
-    
+
     get_scores4 (scores, frm);
 
     /* Find best score */
@@ -1064,12 +1065,12 @@ static int32 get_scores1_all(int32 *scores, vqFeature_t frm[][MAX_TOPN])
     int32 j, k;
     int32 *pdf0, *pdf1, *pdf2, *pdf3;		/* pdf pointers */
     int32 best, b, s, p;
-    
+
     n_senone_active = CdWdPDFMod;
 
     for (j = 0; j < NUM_FEATURES; j++)
 	frm[j][0].codeword *= CdWdPDFMod;
-    
+
     /*
      *  Assumes that codeword is premultiplyed by CdWdPDFMod
      */
@@ -1077,7 +1078,7 @@ static int32 get_scores1_all(int32 *scores, vqFeature_t frm[][MAX_TOPN])
     pdf1 = OPDF[1] + frm[1][0].codeword;
     pdf2 = OPDF[2] + frm[2][0].codeword;
     pdf3 = OPDF[3] + frm[3][0].codeword;
-    
+
     best = (int32) 0x80000000;
     k = 0;
     for (p = 0; p < n_phone; p++) {
@@ -1091,7 +1092,7 @@ static int32 get_scores1_all(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	if (best < b)
 	    best = b;
     }
-    
+
     return (best);
 }
 
@@ -1144,7 +1145,7 @@ static int32 get_scores4_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
     w3 = frm[0][3].val.score;
 
     scr = scores;
-    
+
     for (i = 0; i < n_senone_active; i++) {
 	k = senone_active[i];
 
@@ -1157,7 +1158,7 @@ static int32 get_scores4_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	FAST_ADD (tmp1, tmp1, tmp2, at, ts);
 	scr[k] = tmp1;
     }
-    
+
     for (j = 1; j < NUM_FEATURES; j++) {
 	/* Ptrs to senone prob values for the 4 codewords of codebook j */
 	p_cw0 = OPDF_8B[j]->prob[frm[j][0].codeword];
@@ -1190,7 +1191,7 @@ static int32 get_scores4_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	    scr[n] += tmp1;
 	}
     }
-    
+
     /* Find best score */
     k = (int32) 0x80000000;
     for (j = 0; j < n_senone_active; j++) {
@@ -1207,7 +1208,7 @@ static int32 get_scores4_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 static int32 get_scores4_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 {
     int32 i, k;
-    
+
     for (i = 0; i < CdWdPDFMod; i++)
 	senone_active[i] = i;
     n_senone_active = CdWdPDFMod;
@@ -1258,9 +1259,9 @@ static int32 get_scores4_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
     w2 = (511-w2) >> 10;
     w1 = (511-w1) >> 10;
     w0 = (511-w0) >> 10;
-    
+
     scr = scores;
-    
+
     for (i = 0; i < n_senone_active; i++) {
 	k = senone_active[i];
 
@@ -1271,10 +1272,10 @@ static int32 get_scores4_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	tmp1 = LOG_ADD(tmp1, tmp2);
 	tmp2 = pid_cw3[k] + w3;
 	tmp1 = LOG_ADD(tmp1, tmp2);
-	
+
 	scr[k] = -(tmp1 << 10);
     }
-    
+
     for (j = 1; j < NUM_FEATURES; j++) {
 	/* ptrs to senone prob ids */
 	pid_cw0 = OPDF_8B[j]->id[frm[j][0].codeword];
@@ -1321,7 +1322,7 @@ static int32 get_scores4_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	if (k < scores[n])
 	    k = scores[n];
     }
-    
+
     return (k);
 }
 
@@ -1345,7 +1346,7 @@ static int32 get_scores4_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
        int32 ff, tt, ii; */
 
     n_senone_active = CdWdPDFMod;
-    
+
     /* ptrs to senone prob ids */
     pid_cw0 = OPDF_8B[0]->id[frm[0][0].codeword];
     pid_cw1 = OPDF_8B[0]->id[frm[0][1].codeword];
@@ -1368,7 +1369,7 @@ static int32 get_scores4_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
     w2 = (511-w2) >> 10;
     w1 = (511-w1) >> 10;
     w0 = (511-w0) >> 10;
-    
+
     scr = scores;
     for (k = 0; k < CdWdPDFMod; k++) {
 	tmp1 = pid_cw0[k] + w0;
@@ -1378,10 +1379,10 @@ static int32 get_scores4_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	tmp1 = LOG_ADD(tmp1, tmp2);
 	tmp2 = pid_cw3[k] + w3;
 	tmp1 = LOG_ADD(tmp1, tmp2);
-	
+
 	scr[k] = -(tmp1 << 10);
     }
-    
+
     for (j = 1; j < NUM_FEATURES; j++) {
 	/* ptrs to senone prob ids */
 	pid_cw0 = OPDF_8B[j]->id[frm[j][0].codeword];
@@ -1416,7 +1417,7 @@ static int32 get_scores4_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 		tmp1 = LOG_ADD(tmp1, tmp2);
 		tmp2 = pid_cw3[k] + w3;
 		tmp1 = LOG_ADD(tmp1, tmp2);
-		
+
 		scr[k] -= tmp1 << 10;
 	    }
 	} else {
@@ -1428,12 +1429,12 @@ static int32 get_scores4_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 		tmp1 = LOG_ADD(tmp1, tmp2);
 		tmp2 = pid_cw3[k] + w3;
 		tmp1 = LOG_ADD(tmp1, tmp2);
-		
+
 		scr[k] -= tmp1 << 10;
 	    }
 	}
     }
-    
+
     return (compute_bestpscr(scores));
 }
 
@@ -1450,7 +1451,7 @@ static int32 get_scores2_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
        int32 ff, tt, ii; */
 
     n_senone_active = CdWdPDFMod;
-    
+
     /* ptrs to senone prob ids */
     pid_cw0 = OPDF_8B[0]->id[frm[0][0].codeword];
     pid_cw1 = OPDF_8B[0]->id[frm[0][1].codeword];
@@ -1465,16 +1466,16 @@ static int32 get_scores2_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
     /* Quantize */
     w1 = (511-w1) >> 10;
     w0 = (511-w0) >> 10;
-    
+
     scr = scores;
     for (k = 0; k < CdWdPDFMod; k++) {
 	tmp1 = pid_cw0[k] + w0;
 	tmp2 = pid_cw1[k] + w1;
 	tmp1 = LOG_ADD(tmp1, tmp2);
-	
+
 	scr[k] = -(tmp1 << 10);
     }
-    
+
     for (j = 1; j < NUM_FEATURES; j++) {
 	/* ptrs to senone prob ids */
 	pid_cw0 = OPDF_8B[j]->id[frm[j][0].codeword];
@@ -1497,7 +1498,7 @@ static int32 get_scores2_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 		tmp1 = pid_cw0[k] + w0;
 		tmp2 = pid_cw1[k] + w1;
 		tmp1 = LOG_ADD(tmp1, tmp2);
-		
+
 		scr[k] -= tmp1 << 10;
 	    }
 	} else {
@@ -1505,12 +1506,12 @@ static int32 get_scores2_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 		tmp1 = pid_cw0[k] + w0;
 		tmp2 = pid_cw1[k] + w1;
 		tmp1 = LOG_ADD(tmp1, tmp2);
-		
+
 		scr[k] -= tmp1 << 10;
 	    }
 	}
     }
-    
+
     return (compute_bestpscr(scores));
 }
 
@@ -1534,7 +1535,7 @@ static int32 get_scores1_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
     pid_cw1 = OPDF_8B[1]->id[frm[1][0].codeword];
     pid_cw2 = OPDF_8B[2]->id[frm[2][0].codeword];
     pid_cw3 = OPDF_8B[3]->id[frm[3][0].codeword];
-    
+
     bestscore = (int32) 0x80000000;
     for (k = 0; k < n_senone_active; k++) {
 	j = senone_active[k];
@@ -1549,7 +1550,7 @@ static int32 get_scores1_8b(int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	if (bestscore < scores[j])
 	    bestscore = scores[j];
     }
-    
+
     return (bestscore);
 }
 
@@ -1561,7 +1562,7 @@ static int32 get_scores1_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
     unsigned char *pid_cw0, *pid_cw1, *pid_cw2, *pid_cw3;
 
     n_senone_active = CdWdPDFMod;
-    
+
     /* Ptrs to senone prob values for the top codeword of all codebooks */
     p_cw0 = OPDF_8B[0]->prob[frm[0][0].codeword];
     p_cw1 = OPDF_8B[1]->prob[frm[1][0].codeword];
@@ -1573,7 +1574,7 @@ static int32 get_scores1_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
     pid_cw1 = OPDF_8B[1]->id[frm[1][0].codeword];
     pid_cw2 = OPDF_8B[2]->id[frm[2][0].codeword];
     pid_cw3 = OPDF_8B[3]->id[frm[3][0].codeword];
-    
+
     bestscore = (int32) 0x80000000;
     for (p = 0; p < n_phone; p++) {
 	b = (int32) 0x80000000;
@@ -1593,7 +1594,7 @@ static int32 get_scores1_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 	if (bestscore < b)
 	    bestscore = b;
     }
-    
+
     return (bestscore);
 }
 
@@ -1607,7 +1608,7 @@ static int32 get_scores1_8b_all (int32 *scores, vqFeature_t frm[][MAX_TOPN])
 static void quantize_pdfs (int32 f)
 {
     int32 s, c, pid, scr, qscr;
-    
+
     log_info ("%s(%d): Quantizing senone PDFs to 8 bits\n", __FILE__, __LINE__);
 
     for (c = 0; c < NUM_ALPHABET; c++) {
@@ -1656,7 +1657,7 @@ int32 SCVQInitFeat(feat_t feat, char *meanPath, char *varPath, int32 *opdf)
 		return -1;
 	}
     }
-    
+
     if (prob_size == 32)
 	OPDF[(int32)feat] = opdf;
     else if (prob_size == 8) {
@@ -1667,7 +1668,7 @@ int32 SCVQInitFeat(feat_t feat, char *meanPath, char *varPath, int32 *opdf)
 #endif
     } else
 	QUIT((stderr, "%s(%d): Illegal prob size: %d\n", __FILE__, __LINE__, prob_size));
-    
+
     return 0;
 }
 

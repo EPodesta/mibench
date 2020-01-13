@@ -1,5 +1,5 @@
 /* ====================================================================
- * Copyright (c) 1993-2000 Carnegie Mellon University.  All rights 
+ * Copyright (c) 1993-2000 Carnegie Mellon University.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -7,7 +7,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -16,7 +16,7 @@
  *
  * 3. The names "Sphinx" and "Carnegie Mellon" must not be used to
  *    endorse or promote products derived from this software without
- *    prior written permission. To obtain permission, contact 
+ *    prior written permission. To obtain permission, contact
  *    sphinx@cs.cmu.edu.
  *
  * 4. Products derived from this software may not be called "Sphinx"
@@ -29,16 +29,16 @@
  *    "This product includes software developed by Carnegie
  *    Mellon University (http://www.speech.cs.cmu.edu/)."
  *
- * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND 
- * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+ * THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND
+ * ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY
  * NOR ITS EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
@@ -49,20 +49,20 @@
  * lm_3g.h - darpa standard trigram language model header file
  *
  * HISTORY
- * 
+ *
  * 28-Oct-98	M K Ravishankar (rkm@cs) at Carnegie Mellon University
  * 		Added lm3g_access_type().
- * 
+ *
  * 14-Apr-98	M K Ravishankar (rkm@cs) at Carnegie Mellon University
  * 		Added lm3g_n_lm() and lm3g_index2name().
- * 
+ *
  * 02-Apr-97	M K Ravishankar (rkm@cs) at Carnegie Mellon University
  * 		Added lm3g_raw_score() and lm_t.invlw.
  * 		Changed lm_{u,b,t}g_score to lm3g_{u,b,t}g_score.
- * 
+ *
  * 01-Jul-95	M K Ravishankar (rkm@cs) at Carnegie Mellon University
  * 		Added tginfo_t to help speed up find_bg() and find_tg() searches.
- * 
+ *
  * Revision 1.1  2000/12/05 01:33:29  lenzo
  * files added or moved
  *
@@ -72,10 +72,10 @@
  *
  * Revision 6.5  93/10/27  17:47:04  rkm
  * *** empty log message ***
- * 
+ *
  * Revision 6.4  93/10/15  15:02:39  rkm
  * *** empty log message ***
- * 
+ *
  */
 
 #ifndef _LM_3G_H_
@@ -187,10 +187,10 @@ typedef struct lm_s {
     double invlw;       /* 1.0/language weight */
     double uw;          /* unigram weight */
     int32 log_wip;      /* word insertion penalty */
-    
+
     tginfo_t **tginfo;	/* tginfo[lw2] is head of linked list of trigram information for
 			   some cached subset of bigrams (*,lw2). */
-    
+
     hash_t HT;		/* hash table for word-string->word-id map */
 } lm_t, *LM;
 
@@ -203,34 +203,34 @@ typedef struct lm_s {
 
 /* ----Interface---- */
 
-void	lmSetStartSym (char const *sym);
-void	lmSetEndSym (char const *sym);
-lm_t *	NewModel (int32 n_ug, int32 n_bg, int32 n_tg, int32 n_dict);
-int32   lm_add_word (lm_t *model, int32 dictwid);
-void	lm_add (char const *name, lm_t *model, double lw, double uw, double wip);
-int32	lm_set_current (char const *name);
-lm_t *	lm_get_current (void);
-char *	get_current_lmname (void);
-lm_t *  lm_name2lm (char const *name);
+static void	lmSetStartSym (char const *sym);
+static void	lmSetEndSym (char const *sym);
+static lm_t *	NewModel (int32 n_ug, int32 n_bg, int32 n_tg, int32 n_dict);
+static int32   lm_add_word (lm_t *model, int32 dictwid);
+static void	lm_add (char const *name, lm_t *model, double lw, double uw, double wip);
+static int32	lm_set_current (char const *name);
+static lm_t *	lm_get_current (void);
+static char *	get_current_lmname (void);
+static lm_t *  lm_name2lm (char const *name);
 int32   lm_read_clm(char const *filename, char const *lmname,
 		    double lw, double uw, double wip,
 		    lmclass_t *lmclass, int32 n_lmclass);
-void    lm_init_oov(void);
-int32	get_n_lm (void);
+static void    lm_init_oov(void);
+static int32	get_n_lm (void);
 int32   lm3g_n_lm (void);
 char   *lm3g_index2name (int k);
-int32	dictwd_in_lm (int32 wid);
+static int32	dictwd_in_lm (int32 wid);
 
-int32	lm3g_tg_score (int32 w1, int32 w2, int32 w3);
-int32	lm3g_bg_score (int32 w1, int32 w2);
-int32	lm3g_ug_score (int32 w);
-int32	lm3g_raw_score (int32 score);
+static int32	lm3g_tg_score (int32 w1, int32 w2, int32 w3);
+static int32	lm3g_bg_score (int32 w1, int32 w2);
+static int32	lm3g_ug_score (int32 w);
+static int32	lm3g_raw_score (int32 score);
 int32	lm3g_access_type (void);
 
-void	lm3g_cache_reset (void);
-void	lm3g_cache_stats_dump (FILE *file);
-void	lm_next_frame (void);
+static void	lm3g_cache_reset (void);
+static void	lm3g_cache_stats_dump (FILE *file);
+static void	lm_next_frame (void);
 
-int32   lm_delete (char const *name);
+static int32   lm_delete (char const *name);
 
 #endif /* _LM_3G_H_ */
